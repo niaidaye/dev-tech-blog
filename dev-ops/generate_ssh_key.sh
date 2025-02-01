@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 设置默认的密钥文件路径
-KEY_PATH="$HOME/.ssh/id_rsa"
+KEY_PATH="$HOME/.ssh/rsa_github/id_rsa"
 
 # 检查是否已经存在密钥文件
 if [ -f "$KEY_PATH" ]; then
@@ -12,8 +12,11 @@ if [ -f "$KEY_PATH" ]; then
         exit 1
     fi
 fi
+# 确保 .ssh 目录存在
+mkdir -p "$(dirname "$KEY_PATH")"
 
 # 生成新的 SSH 密钥对
+echo "正在生成新的 SSH 密钥对..."
 ssh-keygen -t rsa -b 4096 -f "$KEY_PATH" -N ""
 
 # 确保 .ssh 目录和 authorized_keys 文件存在
